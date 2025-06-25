@@ -53,12 +53,19 @@ class Pack(models.Model):
         return self.pack_name
 
 
+class Type(models.Model):
+    type_name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.type_name
+
+
 class Pattern(models.Model):
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     mode = models.ForeignKey(Mode, on_delete=models.CASCADE)
     pack = models.ForeignKey(Pack, on_delete=models.CASCADE)
     diff_value = ArrayField(models.IntegerField(null=True, blank=True), blank=True, size=8)
-    keywords = ArrayField(models.CharField(max_length=20), size=5, blank=True, default=list, help_text="help searching")
+    types = models.ManyToManyField(Type, blank=True)
 
     def __str__(self):
         smode = self.mode.mode_abbr if self.mode else "?"

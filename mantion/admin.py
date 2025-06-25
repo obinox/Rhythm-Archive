@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Composer
-from .models import Song, Game, Mode, Pack, Pattern
+from .models import *
 
 
 class ComposerAdmin(admin.ModelAdmin):
@@ -43,9 +42,15 @@ class PatternAdmin(admin.ModelAdmin):
     display_diff_value.short_description = "Difficulty Values"
 
 
+class TypeAdmin(admin.ModelAdmin):
+    list_display = ("type_name",)
+    search_fields = ("type_name",)
+
+
 admin.site.register(Composer, ComposerAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(Mode, ModeAdmin)
 admin.site.register(Pack, PackAdmin)
 admin.site.register(Pattern, PatternAdmin)
+admin.site.register(Type)
